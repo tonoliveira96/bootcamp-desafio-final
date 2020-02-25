@@ -10,6 +10,35 @@ class RecipientController {
 
     return res.json(recipi);
   }
+
+  async update(req, res) {
+    const recipi = await Recipient.findByPk(req.params.id);
+
+    if (!recipi) {
+      return res.status(400).json({ error: 'User not found' });
+    }
+
+    const {
+      id,
+      name,
+      street,
+      number,
+      complement,
+      state,
+      city,
+      cep,
+    } = await recipi.update(req.body);
+    return res.json({
+      id,
+      name,
+      street,
+      number,
+      complement,
+      state,
+      city,
+      cep,
+    });
+  }
 }
 
 export default new RecipientController();
