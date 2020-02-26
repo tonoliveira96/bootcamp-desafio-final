@@ -6,7 +6,19 @@ class DeliverymanController {
   }
 
   async store(req, res) {
-    return res.json({});
+    const deliverymanExists = Deliveryman.findOne({
+      where: {
+        email: req.body.email,
+      },
+    });
+
+    if (!deliverymanExists) {
+      return res.status(400).json({ error: 'Deliveryman already exists' });
+    }
+
+    const { name, email } = await Deliveryman.create(req.body);
+
+    return res.json({ name, email });
   }
 
   async update(req, res) {
