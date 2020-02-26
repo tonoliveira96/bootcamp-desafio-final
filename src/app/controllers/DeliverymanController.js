@@ -1,8 +1,16 @@
+import * as Yup from 'yup';
 import Deliveryman from '../models/Deliveryman';
 
 class DeliverymanController {
   async index(req, res) {
-    return res.json({ message: 'Lista os entregadores' });
+    const deliveryman = await Deliveryman.findAll({
+      where: {
+        status: true,
+      },
+      attribute: ['id', 'name', 'email'],
+    });
+
+    return res.json(deliveryman);
   }
 
   async store(req, res) {
