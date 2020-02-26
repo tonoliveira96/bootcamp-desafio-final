@@ -7,7 +7,7 @@ class DeliverymanController {
       where: {
         status: true,
       },
-      attribute: ['id', 'name', 'email'],
+      attributes: ['id', 'name', 'email', 'status'],
     });
 
     return res.json(deliveryman);
@@ -42,7 +42,31 @@ class DeliverymanController {
   }
 
   async update(req, res) {
-    return res.json({ message: 'Edita os entregadores' });
+    const { email } = req.body;
+
+    const deliveryman = await Deliveryman.findByPk(req.params.id);
+
+    if (email && email !== deliveryman.email) {
+      const deliverymanExists = await Deliveryman.findOne({
+        where: {
+          email,
+        },
+      });
+      if (deliverymanExists) {
+        return res
+          .status(400)
+          .json({ error: 'This email is being used by another deliveryman' });
+      }
+    }
+
+    const { id, name, status } = await deliveryman.update(req.body);
+
+    return res.json({
+      id,
+      name,
+      email,
+      status,
+    });
   }
 }
 
