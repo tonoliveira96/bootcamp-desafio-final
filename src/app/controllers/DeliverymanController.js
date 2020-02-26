@@ -14,6 +14,18 @@ class DeliverymanController {
   }
 
   async store(req, res) {
+    // validation with Yup
+    const schema = Yup.object().shape({
+      name: Yup.string().required(),
+      email: Yup.string()
+        .email()
+        .required(),
+    });
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'validation fails' });
+    }
+
+    // checks if deliveryman email exists
     const deliverymanExists = Deliveryman.findOne({
       where: {
         email: req.body.email,
