@@ -19,15 +19,15 @@ class Order extends Model {
     return this;
   }
 
-  // static associate(models) {
-  //   this.belongsTo(models.Recipient, {
-  //     foreignKey: 'recipient_id',
-  //     as: 'recipient',
-  //   });
-  //   this.belongsTo(models.Deliveryman, {
-  //     foreignKey: 'deliverymans_id',
-  //     as: 'deliveryman',
-  //   });
-  // }
+  static associate(models) {
+    this.belongsTo(models.Deliveryman, {
+      foreignKey: 'deliverymans_id',
+      as: 'deliveryman',
+    });
+    this.belongsTo(models.Recipient, {
+      foreignKey: 'recipient_id',
+      as: 'recipient',
+    });
+  }
 }
 export default Order;
