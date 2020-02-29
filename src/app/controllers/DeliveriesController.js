@@ -16,6 +16,8 @@ class DeliveriesController {
     const deliveries = await Order.findAll({
       where: {
         deliverymans_id: req.params.deliverymanId,
+        canceled_at: null,
+        end_date: null,
       },
       attributes: [
         'id',
