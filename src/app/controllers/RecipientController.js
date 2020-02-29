@@ -2,7 +2,9 @@ import Recipient from '../models/Recipient';
 
 class RecipientController {
   async index(req, res) {
-    return res.json({ message: 'chegou aqui' });
+    const recipient = await Recipient.findAll({});
+
+    return res.json(recipient);
   }
 
   async store(req, res) {
