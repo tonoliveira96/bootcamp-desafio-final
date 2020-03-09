@@ -9,6 +9,7 @@ import DeliverymanController from './app/controllers/DeliverymanController';
 import OrderController from './app/controllers/OrderController';
 import FileController from './app/controllers/FileController';
 import DeliveriesController from './app/controllers/DeliveriesController';
+import ProblemsController from './app/controllers/ProblemsController';
 
 import authMiddleware from './app/middlewares/auth';
 
@@ -24,6 +25,7 @@ routes.get(
   '/deliverymans/:deliverymanId/deliveries',
   DeliveriesController.index
 );
+routes.post('/orders/:orderId/problems', ProblemsController.store);
 
 routes.use(authMiddleware);
 
